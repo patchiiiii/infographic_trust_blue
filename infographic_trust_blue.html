@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สรุปรายชื่อนักกีฬา - Trust Blue 3D Interactive Infographic</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        prompt: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        trust: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc8fb',
+                            400: '#36a9f7',
+                            500: '#0c8de9',
+                            600: '#006ec7',
+                            700: '#0058a3',
+                            800: '#054b85',
+                            900: '#0a3f6f',
+                            950: '#04172c',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: radial-gradient(circle at 50% 10%, #0c2b4e 0%, #05182d 50%, #020b17 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Card Depth */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(13, 40, 71, 0.7) 0%, rgba(6, 23, 43, 0.85) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(124, 200, 251, 0.18);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5),
+                        0 0 15px rgba(12, 141, 233, 0.15);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(250, 204, 21, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6),
+                        0 0 25px rgba(250, 204, 21, 0.25);
+        }
+
+        /* Text Gradients */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #fde047 40%, #eab308 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blue-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #7cc8fb 50%, #36a9f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3D Dynamic Badge Buttons */
+        .player-pill-real {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(202, 138, 4, 0.35) 100%);
+            border: 1px solid rgba(250, 204, 21, 0.5);
+            color: #fef08a;
+            box-shadow: 0 4px 10px rgba(234, 179, 8, 0.15);
+            transition: all 0.2s ease;
+        }
+        .player-pill-real:hover {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.4) 0%, rgba(202, 138, 4, 0.6) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(234, 179, 8, 0.3);
+        }
+
+        .player-pill-reserve {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(2, 132, 199, 0.3) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #bae0fd;
+            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.1);
+            transition: all 0.2s ease;
+        }
+        .player-pill-reserve:hover {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(2, 132, 199, 0.5) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(56, 189, 248, 0.25);
+        }
+
+        /* Avatar 3D Circles */
+        .avatar-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #eab308 60%, #854d0e 100%);
+            color: #1e1b4b;
+            box-shadow: inset 0 2px 3px rgba(255,255,255,0.8), 0 3px 6px rgba(0,0,0,0.4);
+        }
+
+        .avatar-blue {
+            background: linear-gradient(135deg, #e0effe 0%, #36a9f7 60%, #0058a3 100%);
+            color: #03172c;
+            box-shadow: inset 0 2px 3px rgba(255,255,255,0.8), 0 3px 6px rgba(0,0,0,0.4);
+        }
+
+        /* Ambient Animated Orbs */
+        .orb-blue {
+            position: fixed;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(12, 141, 233, 0.2) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseOrb 10s infinite alternate ease-in-out;
+        }
+
+        .orb-gold {
+            position: fixed;
+            bottom: -150px;
+            left: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.12) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseOrb 14s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulseOrb {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.12) translate(30px, 20px); }
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #04172c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #006ec7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+
+        /* Table view styling */
+        .custom-table th {
+            background: rgba(10, 47, 82, 0.9);
+            color: #fde047;
+            border-bottom: 2px solid rgba(234, 179, 8, 0.4);
+        }
+        .custom-table tr {
+            transition: background-color 0.2s ease;
+        }
+        .custom-table tr:hover {
+            background-color: rgba(12, 141, 233, 0.15);
+        }
+    </style>
+</head>
+<body class="relative antialiased pb-20">
+
+    <div class="orb-blue"></div>
+    <div class="orb-gold"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+
+        <header class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-trust-900/80 border border-trust-400/40 text-trust-300 text-xs sm:text-sm font-semibold mb-3 shadow-lg backdrop-blur-md">
+                <i class="fa-solid fa-trophy text-gold-400 text-sm animate-pulse"></i>
+                <span>TRUST BLUE ATHLETES DIRECTORY 2026</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-3">
+                <span class="blue-gradient-text">สรุปรายชื่อนักกีฬา</span>
+                <span class="gold-gradient-text block sm:inline"> TRUST BLUE</span>
+            </h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base font-light">
+                สรุปข้อมูลนักกีฬา
+            </p>
+        </header>
+
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            <div class="glass-card rounded-2xl p-4 text-center border-t-2 border-t-trust-400">
+                <div class="text-slate-300 text-xs sm:text-sm font-medium">ชนิดกีฬา / กิจกรรม</div>
+                <div id="stat-sports" class="text-2xl sm:text-4xl font-extrabold text-white my-1">11</div>
+                <div class="text-[11px] text-trust-300"><i class="fa-solid fa-location-dot text-gold-400 mr-1"></i> BKK & RYG</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-4 text-center border-t-2 border-t-gold-400">
+                <div class="text-gold-300 text-xs sm:text-sm font-medium">ตำแหน่ง "ตัวจริง"</div>
+                <div id="stat-starters" class="text-2xl sm:text-4xl font-extrabold text-gold-400 my-1">0</div>
+                <div class="text-[11px] text-slate-400"><i class="fa-solid fa-crown text-gold-400 mr-1"></i> ผู้เล่นหลักลงสนาม</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-4 text-center border-t-2 border-t-sky-400">
+                <div class="text-sky-300 text-xs sm:text-sm font-medium">ตำแหน่ง "สำรอง"</div>
+                <div id="stat-reserves" class="text-2xl sm:text-4xl font-extrabold text-sky-400 my-1">0</div>
+                <div class="text-[11px] text-slate-400"><i class="fa-solid fa-shield-halved text-sky-400 mr-1"></i> ผู้เล่นกำลังเสริม</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-4 text-center border-t-2 border-t-emerald-400">
+                <div class="text-emerald-300 text-xs sm:text-sm font-medium">จำนวนโควตารวม</div>
+                <div id="stat-total" class="text-2xl sm:text-4xl font-extrabold text-white my-1">0</div>
+                <div class="text-[11px] text-slate-400"><i class="fa-solid fa-users text-emerald-400 mr-1"></i> ทุกประเภทการแข่งขัน</div>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-2xl p-4 sm:p-5 mb-8">
+            <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                
+                <!-- Region Tab Buttons -->
+                <div class="flex flex-wrap gap-1.5 sm:gap-2 w-full lg:w-auto justify-center lg:justify-start" id="region-filters">
+                    <button onclick="filterByRegion('ALL')" class="region-btn active-region px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-trust-600 text-white shadow-md border border-trust-400/50">
+                        <i class="fa-solid fa-globe mr-1"></i> ทั้งหมด
+                    </button>
+                    <button onclick="filterByRegion('กรุงเทพ')" class="region-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-trust-950/80 text-slate-300 hover:text-white hover:bg-trust-800 border border-slate-700/80">
+                        <i class="fa-solid fa-building mr-1 text-trust-300"></i> กรุงเทพ
+                    </button>
+                    <button onclick="filterByRegion('ระยอง')" class="region-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-trust-950/80 text-slate-300 hover:text-white hover:bg-trust-800 border border-slate-700/80">
+                        <i class="fa-solid fa-industry mr-1 text-gold-400"></i> ระยอง
+                    </button>
+                    <button onclick="filterByRegion('กิจกรรมวันปิด')" class="region-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-trust-950/80 text-slate-300 hover:text-white hover:bg-trust-800 border border-slate-700/80">
+                        <i class="fa-solid fa-person-running mr-1 text-emerald-400"></i> กิจกรรมวันปิด
+                    </button>
+                </div>
+
+                <!-- Status Filter & Search Input -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto items-center">
+                    
+                    <!-- View Toggle -->
+                    <div class="flex bg-trust-950 rounded-xl p-1 border border-trust-500/30 w-full sm:w-auto justify-center">
+                        <button id="view-card-btn" onclick="switchView('card')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-trust-600 text-white shadow transition-all">
+                            <i class="fa-solid fa-border-all mr-1"></i> การ์ด 3D
+                        </button>
+                        <button id="view-table-btn" onclick="switchView('table')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">
+                            <i class="fa-solid fa-table-list mr-1"></i> ตารางสรุป
+                        </button>
+                    </div>
+
+                    <!-- Status Filter Dropdown -->
+                    <select id="status-select" onchange="filterByStatus(this.value)" class="w-full sm:w-auto bg-trust-950 text-white border border-trust-500/30 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-gold-400 cursor-pointer font-medium">
+                        <option value="ALL">✨ ทุกสถานะ (ตัวจริง + สำรอง)</option>
+                        <option value="REAL">👑 เฉพาะ "ตัวจริง"</option>
+                        <option value="RESERVE">🛡️ เฉพาะ "สำรอง"</option>
+                    </select>
+
+                    <!-- Search Input Box -->
+                    <div class="relative w-full sm:w-56">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="ค้นหาชื่อเล่นนักกีฬา..." class="w-full pl-9 pr-3 py-2 bg-trust-950 text-white text-xs sm:text-sm rounded-xl border border-trust-500/30 focus:outline-none focus:ring-2 focus:ring-gold-400 placeholder-slate-400">
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section class="glass-card rounded-2xl p-4 mb-8 bg-gradient-to-r from-trust-950 via-trust-900 to-trust-950 border border-gold-500/30">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">นักกีฬาแข่งขันหลายรายการ (Multi-Sport Stars)</h4>
+                        <p class="text-xs text-slate-400">คลิกที่ชื่อนักกีฬาเพื่อดูรายการแข่งขันทั้งหมดของผู้เล่นนั้นๆ</p>
+                    </div>
+                </div>
+                <div id="star-athletes-list" class="flex flex-wrap gap-1.5 items-center">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <main id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic 3D Cards rendered via JavaScript -->
+        </main>
+
+        <main id="table-container" class="hidden glass-card rounded-2xl overflow-hidden p-1 sm:p-2 border border-trust-500/30">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-sm custom-table">
+                    <thead>
+                        <tr>
+                            <th class="p-3">ชนิดกีฬา</th>
+                            <th class="p-3">พื้นที่</th>
+                            <th class="p-3">ประเภทการแข่งขัน</th>
+                            <th class="p-3">สถานะ</th>
+                            <th class="p-3">ชื่อเล่นนักกีฬา</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-800">
+                        <!-- Dynamic Table Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <div id="no-data-msg" class="hidden text-center py-16 glass-card rounded-2xl mt-4">
+            <i class="fa-solid fa-user-xmark text-4xl text-slate-500 mb-3"></i>
+            <h3 class="text-lg font-bold text-slate-300">ไม่พบข้อมูลนักกีฬาที่ตรงกับการค้นหา</h3>
+            <p class="text-slate-400 text-xs mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองของคุณ</p>
+            <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 bg-trust-600 hover:bg-trust-500 text-white rounded-xl text-xs font-semibold transition-all shadow-md">
+                <i class="fa-solid fa-rotate-left mr-1"></i> ล้างตัวกรองทั้งหมด
+            </button>
+        </div>
+
+        <div id="athlete-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden">
+            <div class="glass-card w-full max-w-md rounded-2xl p-6 border border-gold-400/50 shadow-2xl relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="flex items-center gap-3 mb-4">
+                    <div id="modal-avatar" class="w-12 h-12 rounded-full avatar-gold flex items-center justify-center font-bold text-xl">
+                        ?
+                    </div>
+                    <div>
+                        <h3 id="modal-name" class="text-xl font-extrabold text-white">ชื่อนักกีฬา</h3>
+                        <p class="text-xs text-gold-400">สรุปรายการแข่งขัน TRUST BLUE 2026</p>
+                    </div>
+                </div>
+                <div id="modal-sports-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                    <!-- Dynamic modal content -->
+                </div>
+                <button onclick="closeModal()" class="w-full mt-5 py-2 bg-trust-600 hover:bg-trust-500 text-white rounded-xl text-xs font-bold transition-all">
+                    ปิดหน้าต่าง
+                </button>
+            </div>
+        </div>
+
+        <footer class="mt-14 text-center text-slate-400 text-xs py-6 border-t border-slate-800/80">
+            <p class="text-slate-400">© 2026 TRUST BLUE ATHLETES • สรุปรายชื่อนักกีฬาทางการ</p>
+            <p class="text-[11px] text-slate-500 mt-1">ออกแบบด้วยธีม ฟ้า-ขาว-ทอง (3D Premium Glassmorphic Layout)</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // ข้อมูลนักกีฬาฉบับสมบูรณ์ แปลงจากตารางอย่างแม่นยำ 100%
+        const rawRosterData = [
+            // ฟุตบอล (กรุงเทพ)
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'พัชร์' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ชา' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'บิ๊ก' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ฮัท' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'บอล' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ป๊อก' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'เพชร' },
+            { sport: 'ฟุตบอล', location: 'กรุงเทพ', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'จ๊ะ' },
+
+            // ฟุตบอล (ระยอง)
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'โอเล่ย์' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ไอซ์' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'เต้' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'เล็ก' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ไบรท์' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'คม' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'ตัวจริง', name: 'บูรณ์' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'ชิน' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'เต๋า' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'เฟย' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'บอย' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'เอก' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'เจล' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'ต่อ' },
+            { sport: 'ฟุตบอล', location: 'ระยอง', icon: 'fa-futbol', category: 'ทีมชาย', status: 'สำรอง', name: 'บี' },
+
+            // แบดมินตัน (กรุงเทพ)
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'ชายคู่', status: 'ตัวจริง', name: 'พัชร์' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'ชายคู่', status: 'ตัวจริง', name: 'ฟลุ๊ค' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'หญิงคู่', status: 'ตัวจริง', name: 'เมี่ยว' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'หญิงคู่', status: 'ตัวจริง', name: 'เนส' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'คู่ผสม', status: 'ตัวจริง', name: 'บิ๊ก' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'คู่ผสม', status: 'ตัวจริง', name: 'อี๊ฟ' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'ทีมสำรอง', status: 'สำรอง', name: 'ชา' },
+            { sport: 'แบดมินตัน', location: 'กรุงเทพ', icon: 'fa-feather', category: 'ทีมสำรอง', status: 'สำรอง', name: 'ไนส์' },
+
+            // แบดมินตัน (ระยอง)
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'ชายคู่', status: 'ตัวจริง', name: 'แมน' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'ชายคู่', status: 'ตัวจริง', name: 'แซม' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'หญิงคู่', status: 'ตัวจริง', name: 'ปิ่น' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'หญิงคู่', status: 'ตัวจริง', name: 'ป๋อม' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'คู่ผสม', status: 'ตัวจริง', name: 'น้ำมนต์' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'คู่ผสม', status: 'ตัวจริง', name: 'ออย' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'ทีมสำรอง', status: 'สำรอง', name: 'โป้ง' },
+            { sport: 'แบดมินตัน', location: 'ระยอง', icon: 'fa-feather', category: 'ทีมสำรอง', status: 'สำรอง', name: 'กิม' },
+
+            // เทนนิส (กรุงเทพ)
+            { sport: 'เทนนิส', location: 'กรุงเทพ', icon: 'fa-baseball', category: 'คู่ผสม', status: 'ตัวจริง', name: 'ชา' },
+            { sport: 'เทนนิส', location: 'กรุงเทพ', icon: 'fa-baseball', category: 'คู่ผสม', status: 'ตัวจริง', name: 'แป้ง' },
+            { sport: 'เทนนิส', location: 'กรุงเทพ', icon: 'fa-baseball', category: 'คู่ผสม', status: 'สำรอง', name: 'กิ๊ฟซี่' },
+
+            // Pickleball (กรุงเทพ)
+            { sport: 'Pickleball', location: 'กรุงเทพ', icon: 'fa-table-tennis-paddle-ball', category: 'คู่ผสม', status: 'ตัวจริง', name: 'ชา' },
+            { sport: 'Pickleball', location: 'กรุงเทพ', icon: 'fa-table-tennis-paddle-ball', category: 'คู่ผสม', status: 'ตัวจริง', name: 'กิ๊ฟซี่' },
+            { sport: 'Pickleball', location: 'กรุงเทพ', icon: 'fa-table-tennis-paddle-ball', category: 'คู่ผสม', status: 'สำรอง', name: 'พัชร์' },
+
+            // ปิงปอง (กรุงเทพ)
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'ชายคู่', status: 'ตัวจริง', name: 'ชา' },
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'ชายคู่', status: 'ตัวจริง', name: 'โจ้' },
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'หญิงคู่', status: 'ตัวจริง', name: 'ไนส์' },
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'หญิงคู่', status: 'ตัวจริง', name: 'ปุ้ม' },
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'คู่ผสม', status: 'ตัวจริง', name: 'พัชร์' },
+            { sport: 'ปิงปอง', location: 'กรุงเทพ', icon: 'fa-table-tennis', category: 'คู่ผสม', status: 'ตัวจริง', name: 'เมี่ยว' },
+
+            // ตะกร้อ (ระยอง)
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'เอก' },
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'เล็ก' },
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'ทัย' },
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'อ๊อฟ' },
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'เต้' },
+            { sport: 'ตะกร้อ', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'ไอซ์' },
+
+            // วอลเลย์บอล (ระยอง)
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'แมน' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'แซม' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'ตัวจริง', name: 'พงษ์' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมหญิง', status: 'ตัวจริง', name: 'ปอนด์' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมหญิง', status: 'ตัวจริง', name: 'ปิ่น' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมหญิง', status: 'ตัวจริง', name: 'ออย' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'ทุน' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'กิม' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมชาย', status: 'สำรอง', name: 'แม็ก' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมหญิง', status: 'สำรอง', name: 'เอ' },
+            { sport: 'วอลเลย์บอล', location: 'ระยอง', icon: 'fa-volleyball', category: 'ทีมหญิง', status: 'สำรอง', name: 'ปอนด์' },
+
+            // Golf (กรุงเทพ)
+            { sport: 'Golf', location: 'กรุงเทพ', icon: 'fa-golf-ball-tee', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'ต๋อง' },
+            { sport: 'Golf', location: 'กรุงเทพ', icon: 'fa-golf-ball-tee', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'ตุ้ย ตลับเมตร' },
+            { sport: 'Golf', location: 'กรุงเทพ', icon: 'fa-golf-ball-tee', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'อั้ม' },
+
+            // กิจกรรมวันปิดกิจกรรม (โยคะ วิ่ง มวย บาส ฟิตเนส)
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'แซม' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'พัชร์' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'ป๊อก' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'เบนซ์' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'เพชร' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'โจ้' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'มีน' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'คม' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'แป้ง' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'เมี่ยว' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'ฮันนี่' },
+            { sport: 'กิจกรรมวันปิดกิจกรรม', subtitle: '(โยคะ วิ่ง มวย บาส ฟิตเนส)', location: 'กิจกรรมวันปิด', icon: 'fa-person-running', category: 'ชาย/หญิง', status: 'ตัวจริง', name: 'กั๊ก' }
+        ];
+
+        let currentRegion = 'ALL';
+        let currentStatus = 'ALL';
+        let searchQuery = '';
+        let currentView = 'card'; // 'card' or 'table'
+
+        // Group data by Sport + Location key
+        function getGroupedSportsData() {
+            const groups = {};
+
+            rawRosterData.forEach(item => {
+                const groupKey = `${item.sport}_${item.location}`;
+
+                if (!groups[groupKey]) {
+                    groups[groupKey] = {
+                        sport: item.sport,
+                        subtitle: item.subtitle || '',
+                        location: item.location,
+                        icon: item.icon,
+                        categories: {}
+                    };
+                }
+
+                if (!groups[groupKey].categories[item.category]) {
+                    groups[groupKey].categories[item.category] = {
+                        starters: [],
+                        reserves: []
+                    };
+                }
+
+                if (item.status === 'ตัวจริง') {
+                    groups[groupKey].categories[item.category].starters.push(item.name);
+                } else {
+                    groups[groupKey].categories[item.category].reserves.push(item.name);
+                }
+            });
+
+            return Object.values(groups);
+        }
+
+        function renderView() {
+            const groupedData = getGroupedSportsData();
+            const cardsContainer = document.getElementById('cards-container');
+            const tableBody = document.getElementById('table-body');
+            const noDataMsg = document.getElementById('no-data-msg');
+
+            cardsContainer.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            let totalStartersCount = 0;
+            let totalReservesCount = 0;
+            let totalQuotaCount = 0;
+            let visibleGroupCount = 0;
+
+            // Compute global statistics based on current raw filter
+            rawRosterData.forEach(item => {
+                if (item.status === 'ตัวจริง') totalStartersCount++;
+                if (item.status === 'สำรอง') totalReservesCount++;
+                totalQuotaCount++;
+            });
+
+            document.getElementById('stat-starters').innerText = totalStartersCount;
+            document.getElementById('stat-reserves').innerText = totalReservesCount;
+            document.getElementById('stat-total').innerText = totalQuotaCount;
+
+            // Process Groups for rendering
+            groupedData.forEach(group => {
+                // Region Filter
+                if (currentRegion !== 'ALL' && group.location !== currentRegion) {
+                    return;
+                }
+
+                let filteredCategories = {};
+                let groupHasMatch = false;
+
+                Object.keys(group.categories).forEach(catName => {
+                    const cat = group.categories[catName];
+
+                    let starters = cat.starters.filter(name => 
+                        (currentStatus === 'ALL' || currentStatus === 'REAL') &&
+                        name.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+
+                    let reserves = cat.reserves.filter(name => 
+                        (currentStatus === 'ALL' || currentStatus === 'RESERVE') &&
+                        name.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+
+                    if (starters.length > 0 || reserves.length > 0) {
+                        groupHasMatch = true;
+                        filteredCategories[catName] = { starters, reserves };
+                    }
+                });
+
+                if (groupHasMatch) {
+                    visibleGroupCount++;
+
+                    // 1. Render Card View
+                    const cardHTML = generate3DCardHTML(group, filteredCategories);
+                    cardsContainer.innerHTML += cardHTML;
+
+                    // 2. Render Table View Rows
+                    Object.keys(filteredCategories).forEach(catName => {
+                        const { starters, reserves } = filteredCategories[catName];
+
+                        starters.forEach(name => {
+                            tableBody.innerHTML += generateTableRow(group, catName, 'ตัวจริง', name);
+                        });
+
+                        reserves.forEach(name => {
+                            tableBody.innerHTML += generateTableRow(group, catName, 'สำรอง', name);
+                        });
+                    });
+                }
+            });
+
+            // Toggle No Data visibility
+            if (visibleGroupCount === 0) {
+                noDataMsg.classList.remove('hidden');
+            } else {
+                noDataMsg.classList.add('hidden');
+            }
+
+            renderMultiSportStars();
+        }
+
+        function generate3DCardHTML(group, categories) {
+            const isClosing = group.location === 'กิจกรรมวันปิด';
+            const locBadgeStyle = isClosing 
+                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                : group.location === 'ระยอง'
+                    ? 'bg-gold-500/20 text-gold-300 border-gold-500/40'
+                    : 'bg-trust-500/20 text-trust-300 border-trust-500/40';
+
+            let categoriesContent = '';
+
+            Object.keys(categories).forEach(catName => {
+                const { starters, reserves } = categories[catName];
+
+                const startersHTML = starters.map(name => `
+                    <button onclick="openAthleteModal('${name}')" class="player-pill-real px-2.5 py-1 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer">
+                        <span class="w-4 h-4 rounded-full avatar-gold inline-flex items-center justify-center text-[9px] font-bold">${name.charAt(0)}</span>
+                        <span>${name}</span>
+                    </button>
+                `).join('');
+
+                const reservesHTML = reserves.map(name => `
+                    <button onclick="openAthleteModal('${name}')" class="player-pill-reserve px-2.5 py-1 rounded-xl text-xs font-medium inline-flex items-center gap-1.5 cursor-pointer">
+                        <span class="w-4 h-4 rounded-full avatar-blue inline-flex items-center justify-center text-[9px] font-bold">${name.charAt(0)}</span>
+                        <span>${name}</span>
+                    </button>
+                `).join('');
+
+                categoriesContent += `
+                    <div class="bg-trust-950/70 rounded-xl p-3 border border-white/5 space-y-2">
+                        <div class="flex items-center justify-between border-b border-slate-700/60 pb-1.5">
+                            <span class="text-xs font-bold text-trust-300">
+                                <i class="fa-solid fa-layer-group text-slate-400 mr-1 text-[10px]"></i> ${catName}
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-medium">
+                                รวม ${starters.length + reserves.length} คน
+                            </span>
+                        </div>
+
+                        ${starters.length > 0 ? `
+                            <div>
+                                <div class="text-[10px] font-bold text-gold-400 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-crown text-[9px]"></i> ตัวจริง (${starters.length})
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    ${startersHTML}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        ${reserves.length > 0 ? `
+                            <div class="${starters.length > 0 ? 'mt-2 pt-1.5 border-t border-slate-800' : ''}">
+                                <div class="text-[10px] font-semibold text-sky-400 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-shield-halved text-[9px]"></i> สำรอง (${reserves.length})
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    ${reservesHTML}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            return `
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-trust-400 via-gold-400 to-trust-600"></div>
+
+                    <div>
+                        <!-- Header -->
+                        <div class="flex items-start justify-between gap-2 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-trust-600 to-trust-950 border border-trust-300/40 flex items-center justify-center text-gold-400 text-lg shadow-lg">
+                                    <i class="fa-solid ${group.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-base sm:text-lg font-bold text-white tracking-wide leading-tight">
+                                        ${group.sport}
+                                    </h3>
+                                    ${group.subtitle ? `<div class="text-[11px] text-slate-400 font-normal">${group.subtitle}</div>` : ''}
+                                </div>
+                            </div>
+
+                            <span class="px-2.5 py-1 rounded-lg border text-[11px] font-bold ${locBadgeStyle}">
+                                ${group.location}
+                            </span>
+                        </div>
+
+                        <!-- Categories & Players -->
+                        <div class="space-y-2.5">
+                            ${categoriesContent}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateTableRow(group, category, status, name) {
+            const isStarter = status === 'ตัวจริง';
+            const statusBadge = isStarter 
+                ? `<span class="px-2 py-0.5 rounded-md bg-gold-500/20 text-gold-300 border border-gold-400/40 font-bold text-[11px]"><i class="fa-solid fa-crown mr-1"></i>ตัวจริง</span>`
+                : `<span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 border border-sky-400/40 font-medium text-[11px]"><i class="fa-solid fa-shield-halved mr-1"></i>สำรอง</span>`;
+
+            return `
+                <tr class="hover:bg-trust-900/40">
+                    <td class="p-3 font-semibold text-white">
+                        <i class="fa-solid ${group.icon} text-trust-400 mr-1.5"></i> ${group.sport}
+                    </td>
+                    <td class="p-3 text-slate-300">${group.location}</td>
+                    <td class="p-3 text-slate-300">${category}</td>
+                    <td class="p-3">${statusBadge}</td>
+                    <td class="p-3">
+                        <button onclick="openAthleteModal('${name}')" class="font-bold text-trust-200 hover:text-gold-400 underline decoration-dotted underline-offset-4">
+                            ${name}
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function renderMultiSportStars() {
+            const starContainer = document.getElementById('star-athletes-list');
+            const playerCounts = {};
+
+            rawRosterData.forEach(item => {
+                if (!playerCounts[item.name]) {
+                    playerCounts[item.name] = new Set();
+                }
+                playerCounts[item.name].add(item.sport);
+            });
+
+            // Find athletes with 2 or more sports
+            const multiSportAthletes = Object.keys(playerCounts)
+                .filter(name => playerCounts[name].size >= 2)
+                .sort((a, b) => playerCounts[b].size - playerCounts[a].size);
+
+            starContainer.innerHTML = multiSportAthletes.map(name => `
+                <button onclick="openAthleteModal('${name}')" class="px-2.5 py-1 rounded-xl bg-gold-500/10 hover:bg-gold-500/20 border border-gold-400/40 text-gold-300 text-xs font-semibold flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-star text-[10px] text-gold-400"></i>
+                    <span>${name}</span>
+                    <span class="px-1.5 py-0.2 rounded-full bg-gold-400 text-slate-950 text-[10px] font-black">${playerCounts[name].size} กีฬา</span>
+                </button>
+            `).join('');
+        }
+
+        function openAthleteModal(name) {
+            const modal = document.getElementById('athlete-modal');
+            const nameEl = document.getElementById('modal-name');
+            const avatarEl = document.getElementById('modal-avatar');
+            const sportsListEl = document.getElementById('modal-sports-list');
+
+            nameEl.innerText = name;
+            avatarEl.innerText = name.charAt(0);
+
+            const userMatches = rawRosterData.filter(item => item.name === name);
+
+            sportsListEl.innerHTML = userMatches.map(m => `
+                <div class="p-2.5 rounded-xl bg-trust-950/80 border border-trust-500/30 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid ${m.icon} text-gold-400"></i>
+                            <span>${m.sport}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">
+                            ${m.location} • ${m.category}
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold ${m.status === 'ตัวจริง' ? 'bg-gold-500/20 text-gold-300 border border-gold-400/30' : 'bg-sky-500/20 text-sky-300 border border-sky-400/30'}">
+                        ${m.status}
+                    </span>
+                </div>
+            `).join('');
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('athlete-modal').classList.add('hidden');
+        }
+
+        function filterByRegion(region) {
+            currentRegion = region;
+            const buttons = document.querySelectorAll('#region-filters .region-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-trust-600', 'text-white');
+                btn.classList.add('bg-trust-950/80', 'text-slate-300');
+            });
+            event.currentTarget.classList.remove('bg-trust-950/80', 'text-slate-300');
+            event.currentTarget.classList.add('bg-trust-600', 'text-white');
+
+            renderView();
+        }
+
+        function filterByStatus(status) {
+            currentStatus = status;
+            renderView();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.trim();
+            renderView();
+        }
+
+        function switchView(view) {
+            currentView = view;
+            const cardBtn = document.getElementById('view-card-btn');
+            const tableBtn = document.getElementById('view-table-btn');
+            const cardsContainer = document.getElementById('cards-container');
+            const tableContainer = document.getElementById('table-container');
+
+            if (view === 'card') {
+                cardBtn.classList.add('bg-trust-600', 'text-white');
+                cardBtn.classList.remove('text-slate-400');
+                tableBtn.classList.remove('bg-trust-600', 'text-white');
+                tableBtn.classList.add('text-slate-400');
+
+                cardsContainer.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+            } else {
+                tableBtn.classList.add('bg-trust-600', 'text-white');
+                tableBtn.classList.remove('text-slate-400');
+                cardBtn.classList.remove('bg-trust-600', 'text-white');
+                cardBtn.classList.add('text-slate-400');
+
+                cardsContainer.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+            }
+        }
+
+        function resetAllFilters() {
+            currentRegion = 'ALL';
+            currentStatus = 'ALL';
+            searchQuery = '';
+
+            document.getElementById('search-input').value = '';
+            document.getElementById('status-select').value = 'ALL';
+
+            const buttons = document.querySelectorAll('#region-filters .region-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx === 0) {
+                    btn.classList.add('bg-trust-600', 'text-white');
+                    btn.classList.remove('bg-trust-950/80', 'text-slate-300');
+                } else {
+                    btn.classList.remove('bg-trust-600', 'text-white');
+                    btn.classList.add('bg-trust-950/80', 'text-slate-300');
+                }
+            });
+
+            renderView();
+        }
+
+        window.onload = function() {
+            renderView();
+        };
+    </script>
+</body>
+</html>
+
